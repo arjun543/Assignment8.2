@@ -1,0 +1,34 @@
+loading file 
+-----------------------------------
+A = Load 'student_details.txt' Using PigStorage(',') as (id:int,fname:chararray,lname:chararray,branch:chararray,percent:int);
+
+(1)concat: to concatinate first name and last name
+ B = foreach A generate Concat(fname,lname);
+
+dump B;
+-----------------------------------------------------
+
+(2)Tokenize
+
+
+
+
+-----------------------------------------------------
+(3)SUM :sum of scores of each department
+C = group A by branch;
+result= foreach C generate group,SUM(A.percent);
+
+-----------------------------------------------------
+4)MIN: MINIMUM of each branch
+C = group A by branch;
+result= foreach C generate group,MIN(A.percent);
+___________--------------------
+5)MAX = MAXIMUM of each Branch
+
+C = group A by branch;
+result= foreach C generate group,MAX(A.percent);
+--------------------------------------------------------------------------------------------
+6) LIMT : to display top 3 percent students
+C = order A by percent ;
+result = LIMIT C 3;
+----------------------------------------------
