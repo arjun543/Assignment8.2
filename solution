@@ -8,7 +8,21 @@ A = Load 'student_details.txt' Using PigStorage(',') as (id:int,fname:chararray,
 dump B;
 -----------------------------------------------------
 
-(2)Tokenize
+(2)Tokenize and Flatten:
+Input file :wc.txt
+
+hi hello how are you
+how is your work
+have a nice day
+stay happy 
+learn hadoop from acadgild
+
+lines = LOAD 'wc.txt' AS (line:chararray);
+words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) as word;
+grouped = GROUP words BY word;
+wordcount = FOREACH grouped GENERATE group, COUNT(words);
+DUMP wordcount;
+
 
 
 
